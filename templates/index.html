@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block book %}
+    <header xmlns:width="http://www.w3.org/1999/xhtml" xmlns:width="http://www.w3.org/1999/xhtml"
+            xmlns:width="http://www.w3.org/1999/xhtml">
+        <div class="book">
+        <h1> Estimate a trip </h1>
+            <form method="POST" role="form">
+                {{ form.hidden_tag() }}
+                <p>
+                    <div id="originContainer" class="auto-suggest">
+                        {{ form.origin(size=20, class="form-control", placeholder="Start", id="origin") }}
+                    </div><br>
+                    <div id="destinationContainer" class="auto-suggest">
+                        {{ form.dest(size=20, class="form-control", placeholder="Destination", id="destination") }}
+                    </div><br>
+
+                    {{ form.trip_time.label }} {{ form.trip_time(size=20, class_="form-control controlled") }} <br><br>
+                    {{ form.trip_date.label }} {{ form.trip_date(size=20, class_="form-control controlled") }}
+                </p>
+                <p>
+                    {{ form.submit() }}
+                </p>
+                <div id="myMap"></div>
+            </form>
+        </div>
+    </header>
+
+{% endblock %}
+
+{% block content %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <h4 class={{ category }}> {{ message }} </h4>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <img width="23%" src="{{ url_for("static", filename="nsw-in-australia.jpg") }}" style="float: right;">
+    <p>
+        Our services are limited to only NSW in Australia. You can estimate a fare in this page by filling out form at
+        the top. Once you're done, click estimate! You can also directly book the fare if you're logged in.
+            <h4 style="text-decoration: underline;">Fare estimate</h4>
+            <li>Peak time hire charge: $2.50 (along with hire charge, 10pm–6am on Friday's and Saturday's)</li>
+            <li>Distance rate: $2.19 per kilometre</li>
+            <li>Night distance rate: $2.63 per kilometre (trips between 10pm – 6am)</li>
+            <li>Waiting time: 94.4c per minute while vehicle speed is less than 26 km/h</li>
+        </ul>
+    </p>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+    <script src="https://www.bing.com/api/maps/mapcontrol?key=AqbFlmwHJ22y5xeq1bz8VIMq4Pzs3Xbt4BHGlO5EYvey1r8x3XVFPhGzF-4YmeAB&callback=GetSuggestions" async defer> </script>
+{% endblock %}

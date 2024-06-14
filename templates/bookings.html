@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+        {% for user in users %}
+            {% if user.bookings %}
+                <div class="module">
+                    <h4 style="text-align: center;"> {{ user.email }} </h4>
+                    <ul>
+                        <li> The trip is from {{ user.bookings[0].origin }} to {{ user.bookings[0].destination }} </li>
+                        <li> Cost: {{ user.bookings[0].cost }} </li>
+                        <li> Time of departure: {{ user.bookings[0].trip_time }} </li>
+                        <li> Date of departure: {{ user.bookings[0].trip_date }} </li>
+                        <li> Distance: {{ user.bookings[0].distance }} </li>
+                    </ul>
+                </div>
+            {% endif %}
+        {% endfor %}
+{% endblock %}

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Taxis'R'Us</title>
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/cred.css') }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='rajeshstaxi.png') }}">
+    </head>
+    <body>
+        <form class="form-signin" method="POST" role="form">
+            {% block content %} {% endblock %}
+        </form>
+  </body>
+</html>

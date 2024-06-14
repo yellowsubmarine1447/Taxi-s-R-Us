@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<!-- I used the bootstrap css files as a template for my page. base.css is my own stylesheet -->
+<!-- The only javascript file I have is my own, which is base.js -->
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Taxis'R'Us</title>
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='rajeshstaxi.png') }}">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+            <a class="navbar-brand" href="/">Taxis'R'Us<img width="50px" src="{{ url_for("static", filename="rajeshstaxi.png") }}"></a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item {{ 'active' if location == 'Home' else ''}}">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item {{ 'active' if location == 'Contact' else ''}}">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav" style="margin-right: 100px;">
+                    {% if current_user.is_authenticated %}
+                        {% if current_user.id == 1 %}
+                            <li class="nav-item {{ 'active' if location == 'Bookings' else ''}}">
+                                <a class="nav-link" href="/admin/bookings">Bookings</a>
+                            </li>
+                            <li class="nav-item {{ 'active' if location == 'Feedback' else ''}}">
+                                <a class="nav-link" href="/admin/feedback">Feedback</a>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item {{ 'active' if location == 'Logout' else ''}}">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item {{ 'active' if location == 'Login' else ''}}">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item {{ 'active' if location == 'Register' else ''}}">
+                        <a class="nav-link register" href="/register"> Sign up </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main role="main" class="container">
+            <h1> {{ "Welcome to Taxis'R'Us!" if location == "Home" else location }} </h1><br>
+            {% block content %} {% endblock %}
+        </main>
+        {% block book %} {% endblock %}
+        <footer class="footer"> © Taxis'R'Us 2020</footer>
+    </body>
+    {% block scripts %} {% endblock %}
+</html>

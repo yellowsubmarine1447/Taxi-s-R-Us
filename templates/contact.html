@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+    <p>
+        Phone: 0400 000 000<br><br>
+        Email: <a href="mailto:totallylegittaxiservices@gmail.com">
+            totallylegittaxiservices@gmail.com
+        </a><br><br>
+        {% if current_user.is_authenticated %}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <small class={{ category }}> {{ message }} </small><br>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            Submit Feedback:
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {{ form.title(class="form-control title", placeholder="Title") }}
+                    {{ form.content(class="form-control", placeholder="Content", rows="7") }}
+                </div>
+                {{ form.submit() }}
+            </form>
+        {% else %}
+            <a href="/login"> Log in </a> to submit feedback.
+        {% endif %}
+    </p>
+{% endblock %}

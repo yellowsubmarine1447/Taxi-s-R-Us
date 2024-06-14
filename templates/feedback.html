@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+    {% for user in users %}
+        {% if user.feedback %}
+            {% for feedback in user.feedback %}
+                <div class="module" style="padding-left: 20px;">
+                    <h4 style="text-align: center;"> {{ user.email }} </h4>
+                    <h2>{{ feedback.title }}</h2><br>
+                    {{ feedback.content }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+{% endblock %}

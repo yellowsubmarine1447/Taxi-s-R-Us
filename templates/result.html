@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+    <p>
+        {% if error is defined %}
+            {{ error }}<br><br>
+        {% else %}
+            The distance is {{ distance }}km and the estimated cost is ${{ cost }}. The trip will take {{ time_taken }}.
+            {% if booked %}
+                <br><br>You have already booked a trip<br><br>
+            {% elif current_user.is_authenticated %}
+                Would you like to book this fare?<br><br>
+                Trip information:<br>
+                <ul>
+                    <li>Start: {{ origin }}</li>
+                    <li>Destination: {{ destination }}</li>
+                    <li>Time of departure: {{ read_time }}</li>
+                    <li>Date of departure: {{ read_date }}</li>
+                </ul>
+                <a href="/book?origin={{ origin }}&destination={{ destination }}&time={{ time }}&date={{ date }}"><button>Book your fare!</button></a>
+            {% else %}
+                <br><br><a href="/register"> Sign up </a> to book a fare. If you already have an account, <a href="/login">log in</a>.<br><br>
+            {% endif %}
+        {% endif %}
+        <a href="/"><button> Return home </button></a><br><br>
+        <br><br><br>
+    </p>
+{% endblock %}

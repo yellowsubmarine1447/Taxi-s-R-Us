@@ -1,0 +1,20 @@
+{% extends "cred.html" %}
+{% block content %}
+    {{ form.hidden_tag() }}
+    <h1 class="h3 mb-3 font-weight-normal"> Sign up </h1>
+    {{ form.email(size=20, class_="form-control", placeholder="Email")}}
+    {{ form.password(size=20, class_="form-control", placeholder="Password") }}
+    {{ form.confirm(size=20, class_="form-control", placeholder="Confirm password")}}
+
+    <small>
+        Already have an account? <a href="/login" class=""> Log in </a>
+    </small><br>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <small class={{ category }}> {{ message }} </small>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    {{ form.submit(class="btn btn-lg btn-primary btn-block") }}
+{% endblock %}
